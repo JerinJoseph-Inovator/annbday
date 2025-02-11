@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-container">
+
+      <audio id="myAudio" controls autoplay="false" style="display: none;">
+        <source src="resources/music/page1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.  
+      </audio>
+      
+    <!-- EYES -->
+    <div class="eye"></div>
+
+      <h1 id="clickableHeader">Inceptive Day</h1>
+
+      <div class="container">
+        <img src="resources/read/chp1.jpg" alt="Image 1">
+        <img src="resources/read/chp2.jpg" alt="Image 2">
+        <button class="turnOnEye" id="eyeButton">
+          <img src="resources/eyeButtonMain.png" alt="Eye Icon">
+        </button>
+      
+        <audio id="audiosfx" src="resources/music/btnSFX.mp3"></audio>
+    </div>
+
+    <div class="container2">
+    <button id="change-button" class="scary-button" onclick="goToPage('page2.html')">Next Page</button>
+    </div>
+    </div>
+
+    <div class="revealed-area"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

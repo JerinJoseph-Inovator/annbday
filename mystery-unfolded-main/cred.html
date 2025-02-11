@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+    background: white;
+    background-image: url(resources/finalNote.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /* Add this line */
+    overflow-y: auto; /* This enables vertical scrolling */
+    height: 300px;
+}
+
+.scrollable-content {
+    overflow-y: auto; /* This enables vertical scrolling */
+    height: 300px; /* Set a height for the scrollable area */
+}
+    </style>
+</head>
+<body>
+    <audio id="myAudio" controls autoplay="false" style="display: none;" loop>
+        <source src="resources/music/note.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.  
+      </audio>
+    <div class="scrollable-content">
+        <!-- Your content here -->
+    </div>
+    
+</body>
+</html>

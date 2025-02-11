@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cute Hangman Game</title>
+<link rel="stylesheet" href="page2_5S.css">
+</head>
+<body>
+    <audio id="myAudio" controls loop>
+        <source src="resources\music\page2_5.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <button id="playPauseButton" onclick="togglePlayPause()">Play/Pause</button>
+
+<div class="flex-container">
+
+    <!-- BLUE BOX COOKING -->
+  <div class="blue-container">
+    <div class="countdown-container">
+        <div id="timer" class="countdown-timer">
+          <span id="minutes">01</span>
+          <span>:</span>
+          <span id="seconds">30</span>
+        </div>
+      </div>
+    <img class="cooking" src="resources/cooking.jpg" alt="cokking something behind this">
+    <div id="container">
+        <div class="steam" id="steam1"> </div>
+        <div class="steam" id="steam2"> </div>
+        <div class="steam" id="steam3"> </div>
+        <div class="steam" id="steam4"> </div>
+    
+        <div id="cup">
+            <div id="cup-body">
+                <div id="cup-shade"></div>
+            </div>
+            <div id="cup-handle"></div>
+        </div>
+    
+        <div id="saucer"></div>
+    
+        <div id="shadow"></div>
+    </div>
+</div> 
+<!-- Empty blue container to the left -->
+
+  <div class="container"> <!-- Original container moved to the right -->
+    <h1>Hangman Game</h1>
+    <p id="instructions">Guess the hidden word by entering one letter at a time. You have 6 chances to guess the word correctly before the hangman is fully drawn!</p>
+    <div id="hangman-container">
+      <img id="hangman-image" src="resources/hangman/hangman0.jpg" alt="Hangman Image">
+    </div>
+    <div id="word-display"></div>
+    <div id="guess-input">
+      <label for="guess">Enter a letter:</label>
+      <input type="text" id="guess" maxlength="1">
+      <button id="guess-btn">Guess</button>
+    </div>
+    <div id="message"></div>
+    <button id="retry-btn" class="retry-button">Retry</button> <!-- Retry button with class for styling -->
+    <a href="loader.html">
+    <button id="nxtBtn" class="next-button" disabled>Let's Goooo</button> <!-- NEXT button with class for styling -->
+    </a>
+
+  </div>
+</div>
+
+<script src="script2_5.js"></script>
+</body>
+</html>

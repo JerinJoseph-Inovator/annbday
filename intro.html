@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        #countdown ul {
+            list-style: none;
+            padding: 0;
+            font-size: 2rem;
+        }
+        #countdown ul li {
+            display: inline-block;
+            margin: 0 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+        #countdown ul li span {
+            display: block;
+            font-size: 3rem;
+            font-weight: bold;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px red; }
+            100% { text-shadow: 0 0 25px orange; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .warning {
+            color: red;
+            font-size: 1.5rem;
+            display: none;
+            animation: flicker 1s infinite;
+        }
+        #content {
+            display: none;
+            font-size: 3rem;
+            animation: explode 1.5s forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .flicker-bg {
+            animation: flicker-bg 0.2s infinite alternate;
+        }
+        @keyframes flicker-bg {
+            0% { background-color: black; }
+            100% { background-color: darkred; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="headline">Something is cooking...</h1>
+        <div id="countdown">
+            <ul>
+                <li><span id="days"></span> Days</li>
+                <li><span id="hours"></span> Hours</li>
+                <li><span id="minutes"></span> Minutes</li>
+                <li><span id="seconds"></span> Seconds</li>
+            </ul>
+        </div>
+        <p id="warning" class="warning">It's getting intense...</p>
+        <div id="content">
+            <span>💀</span>
+            <span>🔥</span>
+            <span>⚡</span>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const second = 1000,
+                  minute = second * 60,
+                  hour = minute * 60,
+                  day = hour * 24;
+
+            const countDown = new Date("Feb 21, 2025 00:00:00").getTime(), // Updated date
+                  x = setInterval(function() {    
+
+                const now = new Date().getTime(),
+                      distance = countDown - now;
+
+                document.getElementById("days").innerText = Math.floor(distance / (day));
+                document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
+                document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute));
+                document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+
+                // Suspense effects as time runs out
+                if (distance < 30000) { // Less than 30 seconds
+                    document.body.classList.add("flicker-bg");
+                    document.getElementById("warning").style.display = "block";
+                    document.getElementById("warning").innerText = "It's happening...";
+                }
+
+                if (distance < 10000) { // Less than 10 seconds
+                    document.getElementById("countdown").style.animation = "shake 0.2s infinite alternate";
+                    document.getElementById("warning").innerText = "Brace yourself!";
+                }
+
+                if (distance < 0) {
+                    document.getElementById("headline").innerText = "It's HERE...";
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("warning").style.display = "none";
+                    document.getElementById("content").style.display = "block";
+                    document.body.style.backgroundColor = "red";
+                    document.body.style.animation = "shake 0.3s infinite alternate";
+                    clearInterval(x);
+                }
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>

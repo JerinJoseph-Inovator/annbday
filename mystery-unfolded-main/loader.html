@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="loading.css">
+  <title>Loading Page</title>
+</head>
+
+<body>
+  <audio id="myAudio" controls autoplay="false" style="display: none;">
+    <source src="resources\music\loader.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.  
+  </audio>
+
+  <div class="container">
+    <div class="timer" id="timer">40</div>
+  </div>
+
+  <h1 class="home-title">
+    <span>Wow!! You made it!! Congragulations </span>
+    <span> You are awesome, Hoooooriieee!!!!!  </span>
+  </h1>
+
+  <div id="loader">
+    <div id="box"></div>
+    <div id="hill"></div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      // Signal that the loading is complete
+      localStorage.setItem('loadingComplete', 'true');
+      // Redirect to the main page
+      window.location.href = 'page3.html';
+    }, 38000); // 34 seconds delay
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const title = document.querySelector('.home-title');
+      const timer = document.querySelector('.container');
+      
+    title.classList.add('hidden'); // Initially hide the title
+    timer.classList.add('hidden'); // Initially hide the title
+
+    setTimeout(() => {
+        title.classList.remove('hidden'); // Remove the 'hidden' class after 10 seconds to show the title
+        timer.classList.remove('hidden');
+    }, 10000);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const timerDisplay = document.getElementById("timer");
+  let timeLeft = 36;
+
+  const countdown = setInterval(() => {
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      timerDisplay.textContent = "It's not done yet!! Ready?";
+    } else {
+      timerDisplay.textContent = timeLeft;
+      timeLeft--;
+    }
+  }, 1000);
+});
+
+  </script>
+
+</body>
+
+</html>
+ 
