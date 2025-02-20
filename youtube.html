@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Link</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    a {
+      font-size: 2rem;
+      color: #1E90FF;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #1E90FF;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <a id="youtubeLink" href="https://www.youtube.com" target="_blank">Go to YouTube</a>
+  <div id="message">Link Copied!</div>
+  
+  <script>
+    document.getElementById("youtubeLink").addEventListener("click", function(e) {
+      e.preventDefault(); // Prevent immediate navigation
+      const youtubeLink = this.href;
+      navigator.clipboard.writeText(youtubeLink).then(function() {
+        const messageDiv = document.getElementById("message");
+        messageDiv.style.opacity = 1;
+        // After 2 seconds, navigate to YouTube
+        setTimeout(function() {
+          messageDiv.style.opacity = 0;
+          window.location.href = youtubeLink;
+        }, 2000);
+      }).catch(function(err) {
+        console.error("Failed to copy: ", err);
+        // In case of error, navigate immediately
+        window.location.href = youtubeLink;
+      });
+    });
+  </script>
+</body>
+</html>
