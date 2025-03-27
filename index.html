@@ -103,8 +103,8 @@
       <span>⚡</span>
     </div>
     <!-- New post-deadline button panel -->
-    <div id="buttons">
-      <button id="btnWebsite" disabled>Website</button>
+    <div id="buttons"><a href="lamp_light.html">
+      <button id="btnWebsite" >Website</button></a>
       <button id="btnYoutube" onclick="window.location.href='youtube.html'">Youtube</button>
     </div>
   </div>
@@ -169,7 +169,7 @@
         postCountdown.innerText = "5";
         document.querySelector(".container").appendChild(postCountdown);
 
-        let count = 12;
+        let count = 3;
         let postInterval = setInterval(function() {
           count--;
           postCountdown.innerText = count;

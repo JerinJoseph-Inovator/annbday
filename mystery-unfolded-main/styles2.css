@@ -28,7 +28,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: -1;
   stroke-dasharray: 800;
   transform: scale(70%);
   visibility: hidden; /* Initially hidden */
@@ -401,28 +401,3 @@ body {
   right: 68%; /* Adjust this value to position the counter */
   box-shadow: 0px 4px 20px #FFEFEF;
 }
-
-
-svg path {
-  
-  fill: transparent;
-  stroke: #fff;
-  stroke-width: 0.1;
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-  animation: textAnimation 20s ease-in-out;
-}
-  @keyframes textAnimation {
-  0%{
-    stroke-dashoffset: 50;
-  }
-  80%{
-    fill: transparent;
-    }
-  100% {
-    fill: #fff;
-    stroke-dashoffset: 0;
-    }
-
-}
-

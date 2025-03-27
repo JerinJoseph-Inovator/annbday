@@ -1,11 +1,9 @@
-
-
 const audio = document.getElementById('myAudio');
 const playPauseButton = document.getElementById('playPauseButton');
 
 setTimeout(() => {
   document.querySelector('.name').style.display = 'none';
-}, 41000); // 38 seconds delay
+}, 41000); // 41 seconds delay
 
 // Get the counter element
 const counterElement = document.getElementById('counter');
@@ -38,12 +36,10 @@ const countdown = setInterval(() => {
 // Disable the button initially
 nextPageBtn.setAttribute('disabled', true);
 
-// Add an event listener to the button to navigate to the next page (replace 'nextPage.html' with the actual URL of the next page)
+// Add an event listener to the button to navigate to the next page
 nextPageBtn.addEventListener('click', () => {
   window.location.href = 'cred.html';
 });
-
-
 
 function togglePlayPause() {
   if (audio.paused) {
@@ -59,9 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const element = document.querySelector('.name');
   setTimeout(() => {
       element.style.visibility = 'hidden';
-  }, 13000); // Hide element after 5 seconds (8s delay + 30s animation)
+  }, 13000); // Hide element after 13 seconds
 });
-
 
 window.onload = function() {
   // Check if the loading page has signaled completion
@@ -69,7 +64,6 @@ window.onload = function() {
     document.getElementById('main-content').style.display = 'block';
   }
 };
-
 
 (function() {
     function $(id) {
@@ -82,10 +76,6 @@ window.onload = function() {
         timer = null;
     console.log('wat', card);
 
-   
-  
-
-
     openB.addEventListener('click', function () {
       card.setAttribute('class', 'open-half');
       if (timer) clearTimeout(timer);
@@ -93,75 +83,73 @@ window.onload = function() {
         card.setAttribute('class', 'open-fully');
         timer = null;
       }, 1000);
-
       
-  script = `
-  A small poem... Can you assume it's 10th April
-  and also I wrote it in 30mins so please don't expect much
-  .....
-  Hey Christal
-  Another Year older? 
-  
-  Wrinkles and gray hair, they sneak up fast,
-  But we'll ignore them, in your case 
-  So blow those candles, give them a real fight,
-  Party till dawn, make the stars blink in delight.
-  
-  Today was the day
-  An Angel fell from the clouds 
-  It was April, not May
-  With dazzling sparkle which delights the crowds
-  
-  Always interested in the beauty of nature 
-  Some of your flawless features 
-  In search of nature's masterpiece 
-  Try Sighting a mirror to find peace
-  
-  Your kindness shines, 
-  Never to be undermined, 
-  Like a door to heaven without Key
-  Being 'you' is the best recipe.
-  
-  May God's blessings fill your day,
-  As you celebrate in your own special way.
-  Today's your day to shine and play,
-  Make it amazing in every single say!
-..........
-            Hooria
+      let script = `
+  A small poem... Can you assume it's 21st Feb
+  The day was red,
+  And I read about her,
+  And I dreamt about her,
+  While eating pancakes, with coffee and bread,
+  Thinking she will soon be where my heart has led.
+
+  The day was pink,
+  But my phone didn’t ring.
+  When it was cherry blossom,
+  I felt her hands in mine, and it was spring,
+  Thinking she was the song my heart will forever sing, the joy she’ll bring.
+
+  The day was golden,
+  As I sat with chicken chilli, lost in a dream,
+  Her laughter lingered in the evening glow,
+  Like ripples upon a quiet stream,
+  A melody soft, a love unseen, yet wholly supreme.
+
+  The day was silver,
+  Her hair flowed like the gentle night,
+  A cascade of silk, kissed by the moon,
+  Her smile—a lantern, pure and bright,
+  Guiding my heart from endless ruin.
+
+  The day was ours,
+  Her beauty spoke from Cupid’s bow to her merry cheeks,
+  A mole on her palm, a tale untold,
+  Something was missing—a whisper, a sign, the love fate seeks.
+
+  The day was luminous,
+  In her eyes shone galaxies of gentle light,
+  Reflecting kindness and untold goodness, so rare and true,
+  Each glance a promise, each smile a sacred rite,
+  And in that quiet, wondrous moment of all I knew,
+  I found her.
 `;
-
-
-
-let counter = 0;
-
-let intervalID = setInterval(() => {
-counter++;
-style.textContent = script.substring(0, counter);
-style.scrollTop = style.scrollHeight;
-if(counter > script.length) {
-clearInterval(intervalID);
-}
-}, 90);
-
-
-
+      
+      let counter = 0;
+      let intervalID = setInterval(() => {
+        counter++;
+        style.textContent = script.substring(0, counter);
+        style.scrollTop = style.scrollHeight;
+        if (counter > script.length) {
+          clearInterval(intervalID);
+        }
+      }, 90);
     });
-  
-
-
-
 
     closeB.addEventListener('click', function () {
       card.setAttribute('class', 'close-half');
-      if (timer) clearTimerout(timer);
+      if (timer) clearTimeout(timer);
       timer = setTimeout(function () {
         card.setAttribute('class', '');
         timer = null;
       }, 1000);
     });
-  
-  }());
-  
-  
-  const style = document.querySelector(".text pre style");
-  const card = document.querySelector(".front face back face");
+}());
+
+// Select the element where the poem is printed
+const style = document.querySelector(".text pre");
+// Reduce the font size of the poem text
+if (style) {
+  style.style.fontSize = "8px"; // Adjust font size as desired
+}
+
+// Select card element (ensure your HTML has elements with these classes for proper selection)
+const card = document.querySelector(".front.face.back.face");

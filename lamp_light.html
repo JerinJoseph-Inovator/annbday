@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mysterious Lamp Discovery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease;
+        }
+
+        #welcome-text {
+            font-family: 'Cedarville Cursive', cursive;
+            font-size: 6vw;
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        #blood-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        #spring-container {
+            position: fixed;
+            width: 100px;
+            height: 400px;
+            z-index: 20;
+        }
+
+        #thread {
+            position: absolute;
+            width: 20px;
+            height: 100px;
+            background: linear-gradient(to right, #444, #666);
+            border-radius: 10px;
+            cursor: grab;
+            z-index: 10;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.3s ease;
+        }
+
+        #spring {
+            position: absolute;
+            width: 10px;
+            background: linear-gradient(45deg, #555, #777);
+            left: 50%;
+            transform: translateX(-50%);
+            height: 300px;
+            top: 100px;
+            border-radius: 5px;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            pointer-events: none;
+            z-index: 15;
+            transition: background-color 0.3s ease;
+        }
+
+        #light {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle at center, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0) 70%
+            );
+            pointer-events: none;
+            z-index: 20;
+            display: none;
+        }
+
+        #mystery-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background-color: transparent;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: none;
+            z-index: 25;
+            transition: all 0.3s ease;
+        }
+
+        #mystery-button::before {
+            content: '?';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome-text">Welcome</div>
+    <div id="blood-effect"></div>
+    <div id="spring-container">
+        <div id="spring"></div>
+        <div id="thread"></div>
+    </div>
+    <div id="overlay"></div>
+    <div id="light"></div>
+    <a href="mystery-unfolded-main/index.html" id="mystery-button"></a>
+
+    <script>
+        const welcomeText = document.getElementById('welcome-text');
+        const bloodEffect = document.getElementById('blood-effect');
+        const thread = document.getElementById('thread');
+        const overlay = document.getElementById('overlay');
+        const light = document.getElementById('light');
+        const mysteryButton = document.getElementById('mystery-button');
+
+        // Blood drip effect
+        function createBloodDrip() {
+            const drip = document.createElement('div');
+            drip.style.position = 'absolute';
+            drip.style.width = '2px';
+            drip.style.height = `${Math.random() * 50 + 20}px`;
+            drip.style.backgroundColor = 'darkred';
+            drip.style.left = `${Math.random() * 100}%`;
+            drip.style.top = '0';
+            drip.style.opacity = '0.7';
+            drip.style.animation = `bloodDrip ${Math.random() * 2 + 1}s linear infinite`;
+            bloodEffect.appendChild(drip);
+
+            // Remove drip after animation
+            drip.addEventListener('animationend', () => {
+                bloodEffect.removeChild(drip);
+            });
+        }
+
+        // Add CSS for blood drip animation
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes bloodDrip {
+                0% { transform: translateY(-100%); opacity: 0.7; }
+                100% { transform: translateY(100vh); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // Create blood drips
+        setInterval(createBloodDrip, 200);
+
+        // Modify welcome text to look like blood
+        welcomeText.style.color = 'darkred';
+        welcomeText.style.textShadow = '1px 1px 2px rgba(0,0,0,0.3)';
+
+        let isDragging = false;
+        let startY = 0;
+        let isLightOn = false;
+
+        thread.addEventListener('mousedown', startDragging);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDragging);
+        document.addEventListener('mousemove', updateLightPosition);
+
+        function startDragging(e) {
+            isDragging = true;
+            startY = e.clientY - thread.offsetTop;
+            thread.style.cursor = 'grabbing';
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            
+            let newY = e.clientY - startY;
+            newY = Math.max(0, Math.min(300, newY));
+            
+            thread.style.top = `${newY}px`;
+            
+            // Toggle light when thread is pulled down and released
+            if (newY >= 250 && !isLightOn) {
+                isLightOn = true;
+                document.body.style.backgroundColor = 'black';
+                welcomeText.style.opacity = 0;
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+                light.style.display = 'block';
+                mysteryButton.style.display = 'block';
+            } else if (newY <= 50 && isLightOn) {
+                isLightOn = false;
+                document.body.style.backgroundColor = 'white';
+                welcomeText.style.opacity = 1;
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                light.style.display = 'none';
+                mysteryButton.style.display = 'none';
+            }
+        }
+
+        function stopDragging() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            thread.style.cursor = 'grab';
+            
+            // Spring back to original position
+            thread.style.top = '0px';
+        }
+
+        function updateLightPosition(e) {
+            light.style.left = `${e.clientX - 100}px`;
+            light.style.top = `${e.clientY - 100}px`;
+
+            // Check if mystery button is in light area
+            if (isLightOn) {
+                const buttonRect = mysteryButton.getBoundingClientRect();
+                const distanceX = Math.abs(e.clientX - (buttonRect.left + buttonRect.width / 2));
+                const distanceY = Math.abs(e.clientY - (buttonRect.top + buttonRect.height / 2));
+                
+                // Adjust visibility based on cursor proximity
+                if (distanceX < 100 && distanceY < 100) {
+                    mysteryButton.style.backgroundColor = 'rgba(139, 0, 0, 0.2)';
+                    mysteryButton.querySelector('::before').style.color = 'rgba(255, 255, 255, 0.5)';
+                } else {
+                    mysteryButton.style.backgroundColor = 'transparent';
+                    mysteryButton.querySelector('::before').style.color = 'rgba(0, 0, 0, 0.1)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
